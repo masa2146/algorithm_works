@@ -100,6 +100,7 @@ public class Main {
         data.add("ab .*c"); //20
         data.add("a .*..a*"); //21
         data.add("ab .*.."); //22
+        data.add("ab c*a*b"); //22
 
 
 
@@ -117,7 +118,7 @@ public class Main {
 //        String s = "aaa", p = "ab*a*c*a"; //
 //        regularExpression.isMatch(s, p);
 
-        int index = 4;
+        int index = 3;
 //        for (index = 15 ; index < data.size(); index++) {
             System.out.println("\n ==================================================== \n");
             System.out.println("INDEX: " + index);

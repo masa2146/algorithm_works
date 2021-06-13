@@ -13,22 +13,33 @@ public class RegularExpression {
     }
 
     public boolean isMatch(int i, int j, String s, String p) {
-        if (i < p.length() && j < s.length() && (s.charAt(j) == p.charAt(i) || p.charAt(i) == '.')) {
-            if (i + 1 < p.length() && p.charAt(i + 1) == '*') {
-                isMatcher = isMatch(i, ++j, s, p);
+        i = i >= s.length() ? s.length() - 1 : i;
+
+        if (j + 1 >= p.length()) {
+            if (i == s.length() - 1)
+                return isMatcher;
+            else
+                j = p.length() - 2;
+        }
+
+        if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
+            if (p.charAt(j + 1) == '*') {
+                isMatcher = true;
+                if (i + 1 == s.length())
+                    j++;
+                isMatch(++i, j, s, p);
             } else {
-                isMatcher = false;
+                isMatcher = true;
                 isMatch(++i, ++j, s, p);
             }
         } else {
-            if (i + 1 < p.length() && p.charAt(i + 1) == '*') {
+            if (p.charAt(j + 1) == '*') {
                 isMatcher = true;
+                isMatch(i, j + 1, s, p);
             } else {
                 isMatcher = false;
             }
-            isMatch(++i, ++j, s, p);
         }
-
         return isMatcher;
     }
 }
