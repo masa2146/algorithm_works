@@ -15,29 +15,27 @@ public class RegularExpression {
     public boolean isMatch(int i, int j, String s, String p) {
         i = i >= s.length() ? s.length() - 1 : i;
 
-        if (j + 1 >= p.length()) {
-            if (i == s.length() - 1)
-                return isMatcher;
-            else
-                j = p.length() - 2;
-        }
 
+        boolean b = j + 1 < p.length();
         if (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.') {
-            if (p.charAt(j + 1) == '*') {
-                isMatcher = true;
-                if (i + 1 == s.length())
-                    j++;
-                isMatch(++i, j, s, p);
-            } else {
-                isMatcher = true;
-                isMatch(++i, ++j, s, p);
+            isMatcher = true;
+            if (b) {
+                if (p.charAt(j + 1) == '*') {
+                    if (i + 1 == s.length())
+                        j++;
+                    isMatch(++i, j, s, p);
+                } else {
+                    isMatch(++i, ++j, s, p);
+                }
             }
         } else {
-            if (p.charAt(j + 1) == '*') {
-                isMatcher = true;
-                isMatch(i, j + 1, s, p);
-            } else {
-                isMatcher = false;
+            if (b) {
+                if (p.charAt(j + 1) == '*') {
+                    isMatcher = true;
+                    isMatch(i, j + 1, s, p);
+                } else {
+                    isMatcher = false;
+                }
             }
         }
         return isMatcher;
